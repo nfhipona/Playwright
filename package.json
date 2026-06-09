@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "serve ./server",
     "tests": "npx playwright test && npx playwright show-report"
   },
   "keywords": [],
@@ -12,6 +13,7 @@
   "type": "commonjs",
   "devDependencies": {
     "@playwright/test": "^1.60.0",
-    "@types/node": "^25.9.2"
+    "@types/node": "^25.9.2",
+    "serve": "^14.2.6"
   }
 }
