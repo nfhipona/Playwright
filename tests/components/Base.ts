@@ -1,12 +1,10 @@
-import { Locator, Page } from '@playwright/test';
+import { Page } from '@playwright/test';
 
 abstract class Base {
   protected page: Page;
-  protected locator: Locator;
 
-  constructor(page: Page, locator: Locator) {
+  constructor(page: Page) {
     this.page = page;
-    this.locator = locator;
   }
 
   async load(): Promise<void> {

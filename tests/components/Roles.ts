@@ -3,6 +3,8 @@ import Base from './Base';
 
 class RolesPage extends Base { 
     getButton(label: string): Locator {
-        return this.locator.getByRole('button', { name: label });
+        return this.page.getByRole('button', { name: label });
     }
 }
+
+export default RolesPage;
