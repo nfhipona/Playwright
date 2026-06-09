@@ -2,20 +2,28 @@ import { Locator } from '@playwright/test';
 import Base from './Base';
 
 class RolesPage extends Base { 
+    getSection(): Locator {
+        return this.page.locator('#role-locators');
+    }
+
     getButton(label: string): Locator {
-        return this.page.getByRole('button', { name: label });
+        const section = this.getSection();
+        return section.getByRole('button', { name: label });
     }
 
     getInput(label: string): Locator {
-        return this.page.getByRole('textbox', { name: label });
+        const section = this.getSection();
+        return section.getByRole('textbox', { name: label });
     }
 
     getCheckbox(label: string): Locator {
-        return this.page.getByRole('checkbox', { name: label });
+        const section = this.getSection();
+        return section.getByRole('checkbox', { name: label });
     }
 
     getNavigation(): Locator {
-        return this.page.getByRole('navigation').first();
+        const section = this.getSection();
+        return section.getByRole('navigation');
     }
 
     getLists(): Locator {
@@ -24,7 +32,8 @@ class RolesPage extends Base {
     }
 
     getAlert(): Locator {
-        return this.page.getByRole('alert');
+        const section = this.getSection();
+        return section.getByRole('alert');
     }
 }
 
