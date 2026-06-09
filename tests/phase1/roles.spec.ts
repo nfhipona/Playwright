@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import RolesPage from '../components/Roles';
 
-test.describe('Roles', () => {
+test.describe('Roles Locators', () => {
     let rolesPage: RolesPage;
 
     test.beforeEach(async ({ page }) => {
@@ -9,7 +9,7 @@ test.describe('Roles', () => {
         await rolesPage.load();
     });
 
-    test('should find buttons by role', async ({ page }) => {
+    test('should find buttons by role', async () => {
         const primary = rolesPage.getButton('Primary Action');
         await expect(primary).toBeVisible();
 
@@ -20,7 +20,7 @@ test.describe('Roles', () => {
         await expect(div).toBeVisible();
     });
 
-    test('should find form elements by role', async ({ page }) => {
+    test('should find form elements by role', async () => {
         const input = rolesPage.getInput('username');
         await input.fill('my_username_text');
         await expect(input).toHaveValue('my_username_text');
@@ -30,7 +30,7 @@ test.describe('Roles', () => {
         await expect(checkbox).toBeChecked();
     });
 
-    test('should find navigation elements by role', async ({ page }) => {
+    test('should find navigation elements by role', async () => {
         const links = rolesPage.getNavigation();
         await expect(links).toBeVisible();
 
