@@ -9,7 +9,7 @@ test.describe('Text Locators', () => {
         await textPage.load();
     });
 
-    test('should find text elements', async () => {
+    test('should find elements by their associated texts', async () => {
         const textcontent = textPage.getItem(/Locate elements by their text content./i);
         await expect(textcontent).toBeVisible();
 
