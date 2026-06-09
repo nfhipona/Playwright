@@ -1,4 +1,4 @@
-import { Locator, Page } from '@playwright/test';
+import { Locator } from '@playwright/test';
 import Base from './Base';
 
 class RolesPage extends Base { 
