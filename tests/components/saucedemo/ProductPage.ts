@@ -1,10 +1,7 @@
 import { Locator } from '@playwright/test';
 import LoginPage from "./LoginPage";
-import CartPage from './CartPage';
 
 class ProductPage extends LoginPage {
-    protected readonly productURL: string = `${this.baseURL}/inventory.html`; // https://www.saucedemo.com/inventory.html
-
     async getProductLists(): Promise<Locator> {
         return this.locateBy('.inventory_list');
     }
