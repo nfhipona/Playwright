@@ -10,8 +10,12 @@ test.describe('Landing Page', () => {
     });
 
     test('should display the correct title', async () => {
+        const pageURL = landingPage.getPageURL();
+        expect(pageURL).toMatch(/.*saucedemo.*/);
+
         const title = landingPage.getTitle();
         await expect(title).toBeVisible();
+        await expect(title).toHaveText('Swag Labs');
     });
 
     test('should have username and password input fields', async () => {
@@ -22,8 +26,9 @@ test.describe('Landing Page', () => {
     });
     
     test('should have a login button', async () => {
-        const loginButton = landingPage.getLoginButton();
+        const loginButton = await landingPage.getLoginButton();
         await expect(loginButton).toBeVisible();
+        await expect(loginButton).toHaveText('Login');
     });
 
     test('should have credentials legend visible', async () => {

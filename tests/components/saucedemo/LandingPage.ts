@@ -14,12 +14,16 @@ class LandingPage extends Base {
         return this.page.getByPlaceholder('Password');
     }
 
-    getLoginButton(): Locator {
-        return this.page.getByRole('button', { name: 'Login' });
+    async getLoginButton(): Promise<Locator> {
+        return this.locateBy('#login-button');
     }
 
     async getCredentialsLegend(): Promise<Locator> {
-        return this.locateBy('.login_credentials_wrap');
+        return this.locateBy('#login_credentials');
+    }
+
+    getPageURL(): string {
+        return this.page.url();
     }
 }
 
