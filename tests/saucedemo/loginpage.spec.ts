@@ -48,6 +48,11 @@ test.describe('Login Page', () => {
             username: '',
             password: '',
             expectedError: 'Epic sadface: Username is required'
+        },
+        {
+            username: 'locked_out_user',
+            password: validPassword,
+            expectedError: 'Epic sadface: Sorry, this user has been locked out.'
         }
     ].forEach(({ username, password, expectedError }) => {
         test(`should show error message for credentials: ${username.length > 0 ? username : 'empty'} / ${password.length > 0 ? password : 'empty'}`, async () => {
@@ -55,6 +60,46 @@ test.describe('Login Page', () => {
             const errorMessage = loginPage.getByText(/epic sadface:/i);
             await expect(errorMessage).toBeVisible();
             await expect(errorMessage).toHaveText(expectedError);
+        });
+    });
+
+    [
+        {
+            username: 'problem_user',
+            password: validPassword,
+            expectedError: 'Test.allTheThings() T-Shirt (Red)'
+        },
+        {
+            username: 'performance_glitch_user',
+            password: validPassword,
+            expectedError: 'Test.allTheThings() T-Shirt (Red)'
+        },
+        {
+            username: 'error_user',
+            password: validPassword,
+            expectedError: 'Test.allTheThings() T-Shirt (Red)'
+        },
+        {
+            username: 'visual_user',
+            password: validPassword,
+            expectedError: 'Test.allTheThings() T-Shirt (Red)'
+        },
+    ].forEach(({ username, password, expectedError }) => {
+        test(`should allow user to log in with issues on the page for credentials: ${username.length > 0 ? username : 'empty'} / ${password.length > 0 ? password : 'empty'}`, async () => {
+            await loginPage.login(username, password);
+            await loginPage.waitForURL(/.*inventory.*/);
+
+            const currentURL = loginPage.getPageURL();
+            expect(currentURL).toMatch(/.*inventory.html/);
+
+            const inventoryContainer = await loginPage.locateBy('.inventory_list');
+            await expect(inventoryContainer).toBeVisible();
+
+            const inventoryItems = await loginPage.locateBy('.inventory_item');
+            await expect(inventoryItems).toHaveCount(6);
+
+            const result = inventoryItems.filter({ hasText: expectedError });
+            expect(result).toBeTruthy();
         });
     });
 });
