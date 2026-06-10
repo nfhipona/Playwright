@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import PlaceholderPage from '../components/Placeholder';
+import PlaceholderPage from '../components/phase1/Placeholder';
 
 test.describe('Placeholder Locators', () => {
     let placeholderPage: PlaceholderPage;

@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import TestIDPage from '../components/TestID';
+import TestIDPage from '../components/phase1/TestID';
 
 test.describe('Test ID Locators', () => {
     let testIDPage: TestIDPage;

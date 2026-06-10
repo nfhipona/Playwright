@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import LabelPage from '../components/Label';
+import LabelPage from '../components/phase1/Label';
 
 test.describe('Label Locators', () => {
     let labelPage: LabelPage;

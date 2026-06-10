@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import RolesPage from '../components/Roles';
+import RolesPage from '../components/phase1/Roles';
 
 test.describe('Roles Locators', () => {
     let rolesPage: RolesPage;

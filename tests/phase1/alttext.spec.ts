@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import AltTextPage from '../components/AltText';
+import AltTextPage from '../components/phase1/AltText';
 
 test.describe('Alt Text Locators', () => {
     let altTextPage: AltTextPage;

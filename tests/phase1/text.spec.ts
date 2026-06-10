@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import TextPage from '../components/Text';
+import TextPage from '../components/phase1/Text';
 
 test.describe('Text Locators', () => {
     let textPage: TextPage;

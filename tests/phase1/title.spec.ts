@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import TitlePage from '../components/Title';
+import TitlePage from '../components/phase1/Title';
 
 test.describe('Title Locators', () => {
     let titlePage: TitlePage;
