@@ -34,6 +34,18 @@ class ProductDetailPage extends LoginPage {
     async getCartButton(): Promise<Locator> {
         return this.locateBy('.shopping_cart_link');
     }
+
+    async backToProducts(): Promise<void> {
+        const backButton = this.page.getByRole('button', { name: 'Back to products' });
+        await backButton.click();
+        await this.waitForURL(/.*inventory.*/);
+    }
+
+    async navigatetoCart(): Promise<void> {
+        const cartButton = await this.getCartButton();
+        await cartButton.click();
+        await this.waitForURL(/.*cart.*/);
+    }
 }
 
 export default ProductDetailPage;
