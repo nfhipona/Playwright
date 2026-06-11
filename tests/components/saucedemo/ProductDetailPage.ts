@@ -10,7 +10,7 @@ class ProductDetailPage extends LoginPage {
         const items = await this.getProductItems();
         const productLink = items.filter({ hasText: productName }).locator('.inventory_item_name');
         await productLink.click();
-        await this.waitForURL(/.*inventory-item.html?id=\d+/);
+        await this.waitForURL(/.*inventory-item.html\?id=\d+.*/);
     }
 
     async getProductTitle(): Promise<Locator> {
