@@ -74,7 +74,7 @@ test.describe('Product Detail Page', () => {
 
         // Verify we are back on the product listing page
         const productItems = await productDetailPage.getProductItems();
-        await expect(productItems).toBeVisible();
+        await expect(productItems).toHaveCount(6);
      });
 
      test('should navigate to the cart page when clicking the cart button from the product detail page', async () => {
