@@ -6,8 +6,6 @@ test.describe('Checkout Page', () => {
     const checkoutStepOneURLPattern: RegExp = /.*checkout-step-one.html/;
     const checkoutStepTwoURLPattern: RegExp = /.*checkout-step-two.html/;
     const cartURLPattern: RegExp = /.*cart.html/;
-    const validUsername: string = 'standard_user';
-    const validPassword: string = 'secret_sauce';
     const firstName: string = 'eNeF';
     const lastName: string = 'Swag';
     const postalCode: string = '4031';
@@ -15,15 +13,7 @@ test.describe('Checkout Page', () => {
     test.beforeEach(async ({ page }) => {
         checkoutPage = new CheckoutPage(page);
         await checkoutPage.load();
-        await checkoutPage.login(validUsername, validPassword);
-        await checkoutPage.waitForURL(/.*inventory.*/);
-        await checkoutPage.addToCartByName('Sauce Labs Backpack');
-        
-        await checkoutPage.navigateToCart();
-        await checkoutPage.waitForURL(cartURLPattern);
-
-        await checkoutPage.goToCheckoutPage();
-        await checkoutPage.waitForURL(checkoutStepOneURLPattern);
+        await checkoutPage.prepareCheckoutPage();
     });
 
     test('should display the correct checkout information title and in correct URL', async () => {

@@ -2,6 +2,34 @@ import { Locator } from '@playwright/test';
 import CartPage from "./CartPage";
 
 class CheckoutPage extends CartPage {
+    protected readonly checkoutStepOneURLPattern: RegExp = /.*checkout-step-one.html/;
+    protected readonly cartURLPattern: RegExp = /.*cart.html/;
+    protected readonly validUsername: string = 'standard_user';
+    protected readonly validPassword: string = 'secret_sauce';
+    protected readonly productNames: string[] = [
+        'Sauce Labs Backpack',
+        'Sauce Labs Bike Light',
+        'Sauce Labs Bolt T-Shirt',
+        'Sauce Labs Fleece Jacket',
+        'Sauce Labs Onesie',
+        'Test.allTheThings() T-Shirt (Red)',
+    ];
+    
+    async prepareCheckoutPage(): Promise<void> {
+        await this.login(this.validUsername, this.validPassword);
+        await this.waitForURL(/.*inventory.*/);
+
+        for (const productName of this.productNames) { 
+            await this.addToCartByName(productName);
+        }
+        
+        await this.navigateToCart();
+        await this.waitForURL(this.cartURLPattern);
+
+        await this.goToCheckoutPage();
+        await this.waitForURL(this.checkoutStepOneURLPattern);
+    }
+
     async getCheckoutTitle(): Promise<Locator> {
         return this.locateBy('.title');
     }
