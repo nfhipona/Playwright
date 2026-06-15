@@ -19,13 +19,16 @@ class CheckoutPage extends CartPage {
         await this.login(this.validUsername, this.validPassword);
         await this.waitForURL(/.*inventory.*/);
 
+        // Add products to the cart
         for (const productName of this.productNames) { 
             await this.addToCartByName(productName);
         }
         
+        // Go to cart page
         await this.navigateToCart();
         await this.waitForURL(this.cartURLPattern);
 
+        // Go to checkout page
         await this.goToCheckoutPage();
         await this.waitForURL(this.checkoutStepOneURLPattern);
     }

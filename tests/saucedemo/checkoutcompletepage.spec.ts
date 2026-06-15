@@ -7,7 +7,7 @@ test.describe('Checkout Complete Page', () => {
     test.beforeEach(async ({ page }) => {
         checkoutCompletePage = new CheckoutCompletePage(page);
         await checkoutCompletePage.load();
-        await checkoutCompletePage.prepareCheckoutCompletePage();
+        await checkoutCompletePage.prepareCheckoutPage();
     });
 
     test('should display the correct checkout complete logo, title and message', async () => {

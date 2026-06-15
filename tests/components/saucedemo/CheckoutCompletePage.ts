@@ -21,32 +21,11 @@ class CheckoutCompletePage extends CheckoutPage2 {
         'Test.allTheThings() T-Shirt (Red)',
     ];
 
-    async prepareCheckoutCompletePage(): Promise<void> {
-        await this.login(this.validUsername, this.validPassword);
-        await this.waitForURL(this.inventoryURLPattern);
-
-        // Add all products to the cart
-        for (const productName of this.productNames) { 
-            await this.addToCartByName(productName);
-        }
-
-        // Go to cart page
-        await this.navigateToCart();
-        await this.waitForURL(this.cartURLPattern);
-
-        // Go to checkout page
-        await this.goToCheckoutPage();
-        await this.waitForURL(this.checkoutStepOneURLPattern);
-
-        // Fill in checkout information and proceed to checkout step two
-        await this.fillCheckoutInformation(this.firstName, this.lastName, this.postalCode);
-        await this.clickContinueButton();
-        await this.waitForURL(this.checkoutStepTwoURLPattern);
+    async prepareCheckoutPage(): Promise<void> {
+        await super.prepareCheckoutPage(); // Call the prepareCheckoutPage method from the parent class to set up the checkout page
 
         // Click finish button to complete the checkout process
-        const finishButton = this.page.getByRole('button', { name: 'Finish' });
-        await finishButton.click();
-        await this.waitForURL(this.checkoutCompleteURLPattern);
+        await this.clickFinishButton();
     }
 
     async getCheckoutLogo(): Promise<Locator> {
