@@ -9,3 +9,9 @@ HTML file found in `server/index.html` is an attachment from the Udemy course th
 -------
 
 To do unit tests on page: [saucedemo](https://www.saucedemo.com/)
+
+-------
+
+# Tests Results
+
+[Playwright Test - Saucedemo Report.pdf](https://github.com/user-attachments/files/28947391/Playwright.Test.-.Saucedemo.Report.pdf)
