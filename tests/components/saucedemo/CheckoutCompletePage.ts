@@ -22,7 +22,6 @@ class CheckoutCompletePage extends CheckoutPage2 {
     ];
 
     async prepareCheckoutCompletePage(): Promise<void> {
-        await this.load();
         await this.login(this.validUsername, this.validPassword);
         await this.waitForURL(this.inventoryURLPattern);
 
