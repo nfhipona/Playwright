@@ -59,6 +59,18 @@ class CheckoutPage extends CartPage {
         await postalCodeInput.fill(postalCode);
     }
 
+    async getErrorMessageContainer(): Promise<Locator> {
+        return this.locateBy('.error-message-container');
+    }
+
+    async getErrorMessage(): Promise<Locator> {
+        return this.locateBy('[data-test="error"]');
+    }
+
+    async getErrorButton(): Promise<Locator> {
+        return this.locateBy('.error-button');
+    }
+
     async clickContinueButton(): Promise<void> {
         const continueButton = this.page.getByRole('button', { name: 'Continue' });
         await continueButton.click();
@@ -68,7 +80,7 @@ class CheckoutPage extends CartPage {
     async clickCancelButton(): Promise<void> {
         const cancelButton = this.page.getByRole('button', { name: 'Cancel' });
         await cancelButton.click();
-        await this.waitForURL(/.*cart.html/);
+        await this.waitForURL(this.cartURLPattern);
     }
 }
 

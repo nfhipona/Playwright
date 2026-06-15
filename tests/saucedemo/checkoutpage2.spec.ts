@@ -57,7 +57,7 @@ test.describe('Checkout Page Step Two', () => {
         const subTotalItemPrice = await checkoutPage2.getSubTotalItemPrice();
         const priceText = await subTotalItemPrice.textContent();
         const subTotalPriceText = priceText ? priceText : '';
-        const subTotalPrice = parseFloat(subTotalPriceText.replace('$', ''));
+        const subTotalPrice = parseFloat(subTotalPriceText.replace('Item total: $', ''));
 
         // Compare the calculated total price with the displayed subtotal price
         expect(subTotalPrice).toEqual(totalPrice);

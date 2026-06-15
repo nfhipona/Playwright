@@ -34,6 +34,55 @@ test.describe('Checkout Page', () => {
         await expect(postalCodeInput).toBeVisible();
     });
 
+    [
+        {
+            firstName: '',
+            lastName: 'Swag',
+            postalCode: '4031',
+            errorMessage: 'Error: First Name is required'
+        },
+        {
+            firstName: 'eNeF',
+            lastName: '',
+            postalCode: '4031',
+            errorMessage: 'Error: Last Name is required'
+        },
+        {
+            firstName: 'eNeF',
+            lastName: 'Swag',
+            postalCode: '',
+            errorMessage: 'Error: Postal Code is required'
+        },
+        {
+            firstName: '',
+            lastName: '',
+            postalCode: '',
+            errorMessage: 'Error: First Name is required'
+        },
+    ].forEach(({ firstName, lastName, postalCode, errorMessage }) => {
+        test(`should display error message "${errorMessage}" when first name is "${firstName}", last name is "${lastName}", and postal code is "${postalCode}"`, async () => {
+            await checkoutPage.fillCheckoutInformation(firstName, lastName, postalCode);
+            await checkoutPage.clickContinueButton();
+
+            const errorLocator = await checkoutPage.getErrorMessage();
+            await expect(errorLocator).toBeVisible();
+            await expect(errorLocator).toHaveText(errorMessage);
+        });
+    });
+
+    test('should dismiss error message when clicking the error button', async () => {
+        await checkoutPage.fillCheckoutInformation('', '', '');
+        await checkoutPage.clickContinueButton();
+
+        const errorLocator = await checkoutPage.getErrorMessage();
+        await expect(errorLocator).toBeVisible();
+
+        const errorButton = await checkoutPage.getErrorButton();
+        await errorButton.click();
+
+        await expect(errorLocator).toBeHidden();
+    });
+
     test('should fill in the checkout information and proceed to the next step', async () => {
         await checkoutPage.fillCheckoutInformation(firstName, lastName, postalCode);
         await checkoutPage.clickContinueButton();
