@@ -14,4 +14,9 @@ To do unit tests on page: [saucedemo](https://www.saucedemo.com/)
 
 # Tests Results
 
+<!--
 [Playwright Test - Saucedemo Report.pdf](https://github.com/user-attachments/files/28947391/Playwright.Test.-.Saucedemo.Report.pdf)
+-->
+[Playwright Test Report.pdf](https://github.com/user-attachments/files/28948538/Playwright.Test.Report.pdf)
+
+<img width="6133" height="22683" alt="Playwright Test Report" src="https://github.com/user-attachments/assets/1ca195de-7112-4ff4-ac3f-52797a3592eb" />
