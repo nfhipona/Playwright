@@ -3,15 +3,10 @@ import CheckoutPage2 from '../components/saucedemo/CheckoutPage2';
 
 test.describe('Checkout Page Step Two', () => {
     let checkoutPage2: CheckoutPage2;
-    const homeURLPattern: RegExp = /.*inventory.html/;
-    const checkoutStepOneURLPattern: RegExp = /.*checkout-step-one.html/;
+    const inventoryURLPattern: RegExp = /.*inventory.html/;
     const checkoutStepTwoURLPattern: RegExp = /.*checkout-step-two.html/;
     const checkoutCompleteURLPattern: RegExp = /.*checkout-complete.html/;
-    const validUsername: string = 'standard_user';
-    const validPassword: string = 'secret_sauce';
-    const firstName: string = 'eNeF';
-    const lastName: string = 'Swag';
-    const postalCode: string = '4031';
+    const productDetailsURLPattern: RegExp = /.*inventory-item.html\?id=\d+.*/;
     const productNames: string[] = [
         'Sauce Labs Backpack',
         'Sauce Labs Bike Light',
@@ -31,10 +26,10 @@ test.describe('Checkout Page Step Two', () => {
         const cartItems = await checkoutPage2.getCartItems();
         const productLink = cartItems.filter({ hasText: productNames[0] }).locator('.inventory_item_name');
         await productLink.click();
-        await checkoutPage2.waitForURL(/.*inventory-item.html\?id=\d+.*/);
+        await checkoutPage2.waitForURL(productDetailsURLPattern);
 
         const pageURL = checkoutPage2.getPageURL();
-        expect(pageURL).toMatch(/.*inventory-item.html\?id=\d+.*/);
+        expect(pageURL).toMatch(productDetailsURLPattern);
 
         // Verify the product details page is displayed
         const productTitle = checkoutPage2.getByText(productNames[0]);
@@ -65,11 +60,11 @@ test.describe('Checkout Page Step Two', () => {
         const subTotalPrice = parseFloat(subTotalPriceText.replace('$', ''));
 
         // Compare the calculated total price with the displayed subtotal price
-        expect(subTotalPrice).toBe(totalPrice);
+        expect(subTotalPrice).toEqual(totalPrice);
     });
 
     test('should finish the checkout process and navigate to the complete page', async () => {
-        await checkoutPage2.clickContinueButton();
+        await checkoutPage2.clickFinishButton();
 
         const pageURL = checkoutPage2.getPageURL();
         expect(pageURL).toMatch(checkoutCompleteURLPattern);
@@ -79,6 +74,6 @@ test.describe('Checkout Page Step Two', () => {
         await checkoutPage2.clickCancelButton();
 
         const pageURL = checkoutPage2.getPageURL();
-        expect(pageURL).toMatch(homeURLPattern);
+        expect(pageURL).toMatch(inventoryURLPattern);
     });
 });
