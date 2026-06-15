@@ -46,7 +46,7 @@ test.describe('Checkout Page Step Two', () => {
         await checkoutPage2.waitForURL(checkoutStepTwoURLPattern);
     });
 
-    test('should be able to view the product details and navigate back to the product page', async () => {
+    test('should be able to view the product details', async () => {
         const cartItems = await checkoutPage2.getCartItems();
         const productLink = cartItems.filter({ hasText: productNames[0] }).locator('.inventory_item_name');
         await productLink.click();

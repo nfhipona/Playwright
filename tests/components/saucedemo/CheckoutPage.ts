@@ -2,9 +2,6 @@ import { Locator } from '@playwright/test';
 import CartPage from "./CartPage";
 
 class CheckoutPage extends CartPage {
-    protected readonly checkoutStepTwoURLPattern: RegExp = /.*checkout-step-two.html/;
-    protected readonly cartURLPattern: RegExp = /.*cart.html/;
-
     async getCheckoutTitle(): Promise<Locator> {
         return this.locateBy('.title');
     }
@@ -34,13 +31,13 @@ class CheckoutPage extends CartPage {
     async clickContinueButton(): Promise<void> {
         const continueButton = this.page.getByRole('button', { name: 'Continue' });
         await continueButton.click();
-        await this.waitForURL(this.checkoutStepTwoURLPattern);
+        await this.waitForURL(/.*checkout-step-two.html/);
     }
 
     async clickCancelButton(): Promise<void> {
         const cancelButton = this.page.getByRole('button', { name: 'Cancel' });
         await cancelButton.click();
-        await this.waitForURL(this.cartURLPattern);
+        await this.waitForURL(/.*cart.html/);
     }
 }
 

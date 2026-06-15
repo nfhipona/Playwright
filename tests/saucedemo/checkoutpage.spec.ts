@@ -18,8 +18,12 @@ test.describe('Checkout Page', () => {
         await checkoutPage.login(validUsername, validPassword);
         await checkoutPage.waitForURL(/.*inventory.*/);
         await checkoutPage.addToCartByName('Sauce Labs Backpack');
+        
         await checkoutPage.navigateToCart();
+        await checkoutPage.waitForURL(cartURLPattern);
+
         await checkoutPage.goToCheckoutPage();
+        await checkoutPage.waitForURL(checkoutStepOneURLPattern);
     });
 
     test('should display the correct checkout information title and in correct URL', async () => {

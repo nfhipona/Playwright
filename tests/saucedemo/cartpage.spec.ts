@@ -3,7 +3,9 @@ import CartPage from '../components/saucedemo/CartPage';
 
 test.describe('Cart Page', () => {
     let cartPage: CartPage;
+    const inventoryURLPattern: RegExp = /.*inventory.*/;
     const cartPageURLPattern: RegExp = /.*cart.html/;
+    const productDetailsURLPattern: RegExp = /.*inventory-item.html\?id=\d+.*/;
     const validUsername: string = 'standard_user';
     const validPassword: string = 'secret_sauce';
     const productNames: string[] = [
@@ -19,7 +21,7 @@ test.describe('Cart Page', () => {
         cartPage = new CartPage(page);
         await cartPage.load();
         await cartPage.login(validUsername, validPassword);
-        await cartPage.waitForURL(/.*inventory.*/);
+        await cartPage.waitForURL(inventoryURLPattern);
     });
 
     test('should add a product to the cart and verify that the cart badge got updated', async () => {
@@ -29,6 +31,26 @@ test.describe('Cart Page', () => {
 
         const cartButton = await cartPage.getCartButton();
         await expect(cartButton).toHaveText(productNames.length.toString());
+    });
+
+    test('should be able to view the product details', async () => {
+        for (const productName of productNames) { 
+            await cartPage.addToCartByName(productName);
+        }
+        await cartPage.navigateToCart();
+        await cartPage.waitForURL(cartPageURLPattern);
+
+        const cartItems = await cartPage.getCartItems();
+        const productLink = cartItems.filter({ hasText: productNames[0] }).locator('.inventory_item_name');
+        await productLink.click();
+        await cartPage.waitForURL(productDetailsURLPattern);
+        
+        const pageURL = cartPage.getPageURL();
+        expect(pageURL).toMatch(productDetailsURLPattern);
+
+        // Verify the product details page is displayed
+        const productTitle = cartPage.getByText(productNames[0]);
+        await expect(productTitle).toBeVisible();
     });
 
     test('should add a product to the cart and verify it appears in the cart item lists', async () => {
@@ -91,7 +113,7 @@ test.describe('Cart Page', () => {
         await cartPage.backToProductPage();
 
         const productListURL = cartPage.getPageURL();
-        expect(productListURL).toMatch(/.*inventory.*/);
+        expect(productListURL).toMatch(inventoryURLPattern);
 
         // Verify we are back on the product listing page
         const productItems = await cartPage.getProductItems();
