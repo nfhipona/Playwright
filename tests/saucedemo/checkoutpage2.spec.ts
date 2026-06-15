@@ -24,26 +24,7 @@ test.describe('Checkout Page Step Two', () => {
     test.beforeEach(async ({ page }) => {
         checkoutPage2 = new CheckoutPage2(page);
         await checkoutPage2.load();
-        await checkoutPage2.login(validUsername, validPassword);
-        await checkoutPage2.waitForURL(/.*inventory.*/);
-
-        // Add all products to the cart
-        for (const productName of productNames) { 
-            await checkoutPage2.addToCartByName(productName);
-        }
-
-        // Go to cart page
-        await checkoutPage2.navigateToCart();
-        await checkoutPage2.waitForURL(/.*cart.html/);
-
-        // Go to checkout page
-        await checkoutPage2.goToCheckoutPage();
-        await checkoutPage2.waitForURL(/.*checkout-step-one.html/);
-
-        // Fill in checkout information and proceed to checkout step two
-        await checkoutPage2.fillCheckoutInformation(firstName, lastName, postalCode);
-        await checkoutPage2.clickContinueButton();
-        await checkoutPage2.waitForURL(checkoutStepTwoURLPattern);
+        await checkoutPage2.prepareCheckoutPage();
     });
 
     test('should be able to view the product details', async () => {
