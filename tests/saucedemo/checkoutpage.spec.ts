@@ -62,7 +62,12 @@ test.describe('Checkout Page', () => {
     ].forEach(({ firstName, lastName, postalCode, errorMessage }) => {
         test(`should display error message "${errorMessage}" when first name is "${firstName}", last name is "${lastName}", and postal code is "${postalCode}"`, async () => {
             await checkoutPage.fillCheckoutInformation(firstName, lastName, postalCode);
-            await checkoutPage.clickContinueButton();
+            const continueButton = await checkoutPage.getContinueButton();
+            await continueButton.click();
+
+            // Should stay on same page and display the correct error message
+            const pageURL = checkoutPage.getPageURL();
+            expect(pageURL).toMatch(checkoutStepOneURLPattern);
 
             const errorLocator = await checkoutPage.getErrorMessage();
             await expect(errorLocator).toBeVisible();

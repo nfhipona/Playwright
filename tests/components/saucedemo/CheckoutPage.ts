@@ -71,8 +71,12 @@ class CheckoutPage extends CartPage {
         return this.locateBy('.error-button');
     }
 
+    async getContinueButton(): Promise<Locator> {
+        return this.page.getByRole('button', { name: 'Continue' });
+    }
+
     async clickContinueButton(): Promise<void> {
-        const continueButton = this.page.getByRole('button', { name: 'Continue' });
+        const continueButton = await this.getContinueButton();
         await continueButton.click();
         await this.waitForURL(/.*checkout-step-two.html/);
     }
