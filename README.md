@@ -1,7 +1,7 @@
 # Udemy Course: TypeScript Programming, Playwright Web (End-To-End) , Accessibility, Visual and API Automation Testing & AI features
 
 # Instructions
-1. Clone the repo
+1. Clone or download the codebase
 2. Install and update packages with: `npm install`
 3. Run tests suite with: `npm run tests` or `npx playwright tests`
 
