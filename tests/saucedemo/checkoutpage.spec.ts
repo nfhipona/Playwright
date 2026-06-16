@@ -77,7 +77,12 @@ test.describe('Checkout Page', () => {
 
     test('should dismiss error message when clicking the error button', async () => {
         await checkoutPage.fillCheckoutInformation('', '', '');
-        await checkoutPage.clickContinueButton();
+        const continueButton = await checkoutPage.getContinueButton();
+        await continueButton.click();
+
+        // Should stay on same page and display the correct error message
+        const pageURL = checkoutPage.getPageURL();
+        expect(pageURL).toMatch(checkoutStepOneURLPattern);
 
         const errorMessage = await checkoutPage.getErrorMessage();
         await expect(errorMessage).toBeVisible();
@@ -86,7 +91,7 @@ test.describe('Checkout Page', () => {
         await errorButton.click();
 
         const errorLabel = await checkoutPage.getErrorMessage();
-        expect(errorLabel).toBeNull();
+        await expect(errorLabel).not.toBeVisible();
     });
 
     test('should fill in the checkout information and proceed to the next step', async () => {
