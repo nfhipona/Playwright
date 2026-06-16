@@ -79,13 +79,14 @@ test.describe('Checkout Page', () => {
         await checkoutPage.fillCheckoutInformation('', '', '');
         await checkoutPage.clickContinueButton();
 
-        const errorLocator = await checkoutPage.getErrorMessage();
-        await expect(errorLocator).toBeVisible();
+        const errorMessage = await checkoutPage.getErrorMessage();
+        await expect(errorMessage).toBeVisible();
 
         const errorButton = await checkoutPage.getErrorButton();
         await errorButton.click();
 
-        await expect(errorLocator).toBeHidden();
+        const errorLabel = await checkoutPage.getErrorMessage();
+        expect(errorLabel).toBeNull();
     });
 
     test('should fill in the checkout information and proceed to the next step', async () => {
