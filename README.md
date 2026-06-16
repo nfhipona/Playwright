@@ -15,7 +15,7 @@ HTML file found in `server/index.html` is an attachment from the Udemy course th
 
 -------
 
-To do unit tests on page: [saucedemo](https://www.saucedemo.com/)
+This page [saucedemo](https://www.saucedemo.com/) is fully tested.
 
 -------
 
