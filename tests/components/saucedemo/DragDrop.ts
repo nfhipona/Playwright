@@ -1,4 +1,4 @@
-import { Page, Locator, LocatorScreenshotOptions } from '@playwright/test';
+import { Page, Locator } from '@playwright/test';
 
 class DragDrop {
     private page: Page;
