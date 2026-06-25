@@ -13,8 +13,9 @@
   "type": "commonjs",
   "devDependencies": {
     "@axe-core/playwright": "^4.12.1",
-    "@playwright/test": "^1.60.0",
+    "@playwright/test": "^1.61.1",
     "@types/node": "^25.9.2",
+    "allure-playwright": "^3.10.1",
     "serve": "^14.2.6"
   }
 }
