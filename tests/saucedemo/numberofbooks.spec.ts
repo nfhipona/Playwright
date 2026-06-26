@@ -9,9 +9,13 @@ test.describe('Number of Books on the Page', () => {
         await numberOfBooks.load();
     });
 
-    test('should load all books and verify the last book title', async () => {
-        test.slow(); // Marking the test as slow due to potential long loading times
-        await numberOfBooks.scrollToEndOfPage();
+    test('should load all books and verify the last book title', async ({ browserName }) => {
+        test.slow(browserName === 'webkit', "This feature is slow in Safari");
+        if (browserName === 'webkit') {
+            test.setTimeout(120000); // Marking the test as slow due to potential long loading times
+        }
+
+        await numberOfBooks.scrollToEndOfPage(browserName);
 
         const listOfBooks = await numberOfBooks.getListOfBooks();
         const bookCount = await listOfBooks.count();

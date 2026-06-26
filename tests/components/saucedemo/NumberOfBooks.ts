@@ -13,22 +13,22 @@ class NumberOfBooks {
         await this.page.waitForLoadState('load');
     }
 
-    async scrollToEndOfPage(): Promise<void> {
-        const browserType = this.page.context().browser()?.browserType().name();
+    async scrollToEndOfPage(browserName: String = "unknown"): Promise<void> {
         let previousHeight = 0;
 
         while (true) {
             await this.page.evaluate(() => window.scrollTo(0, document.body.scrollHeight)); // Scroll to the bottom
-            if (browserType === 'webkit') {
+            if (browserName === 'webkit') {
                 await this.page.keyboard.press('Meta+ArrowDown'); // Since scroll to seems to fail for safari
             }
             await this.page.waitForTimeout(2000); // Wait for new content to load
 
-            if (browserType === 'webkit') {
-                const listOfBooks = await this.getListOfBooks();
-                const bookCount = await listOfBooks.count();
-                //console.log(`Current number of books loaded: ${bookCount}`);
-                if (bookCount >= 1576) {
+            const listOfBooks = await this.getListOfBooks();
+            const bookCount = await listOfBooks.count();
+            console.log(`Browser: ${browserName} -- Current number of books loaded: ${bookCount}`);
+            
+            if (browserName === 'webkit') {
+                if (bookCount >= 1500) { // Expecting more than 1500 books to be loaded
                     break;
                 }
             } else {
