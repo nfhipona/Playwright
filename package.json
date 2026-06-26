@@ -8,9 +8,9 @@
     "tests": "npx playwright test",
     "tests:default": "npx playwright test && npx playwright show-report",
     "tests:allure2":"npx playwright test && allure generate ./allure-results -o ./allure-report",
-    "tests:allure2-report": "npm run tests:allure && allure open ./allure-report",
+    "tests:allure2-report": "npm run tests:allure2 && allure open ./allure-report",
     "tests:allure3":"npx playwright test && npx allure generate ./allure-results",
-    "tests:allure3-report": "npm run tests:allure && npx allure open ./allure-report"
+    "tests:allure3-report": "npm run tests:allure3 && npx allure open ./allure-report"
   },
   "keywords": [],
   "author": "",
